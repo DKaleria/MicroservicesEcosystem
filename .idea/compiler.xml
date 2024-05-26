@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="PictureAppDiscoveryService" />
+        <module name="user-service" />
+        <module name="prroduct-service" />
+        <module name="identity-service" />
+        <module name="ApiGateway" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="PictureAppUsers" target="17" />
+      <module name="product-service" target="17" />
+      <module name="untitled" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ApiGateway" options="-parameters" />
+      <module name="PictureAppDiscoveryService" options="-parameters" />
+      <module name="PictureAppUsers" options="-parameters" />
+      <module name="identity-service" options="-parameters" />
+      <module name="product-service" options="-parameters" />
+      <module name="prroduct-service" options="-parameters" />
+      <module name="user-service" options="-parameters" />
+    </option>
+  </component>
+</project>
