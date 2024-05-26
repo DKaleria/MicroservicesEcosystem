@@ -26,7 +26,6 @@ public class UserService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     public User register(RegistrationRequest request) {
-        System.out.println("request_REGISTER:" + request);
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
             throw new IllegalArgumentException("User already exists");
         }

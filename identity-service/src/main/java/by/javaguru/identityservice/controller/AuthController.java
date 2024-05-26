@@ -27,14 +27,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody RegistrationRequest request) {
-        System.out.println("HELLO");
         User user = userService.register(request);
         return ResponseEntity.ok(user);
     }
     @GetMapping("/users")
     @Transactional(readOnly = true)
     public ResponseEntity<List<User>> getAllUsers() {
-        System.out.println("HI");
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
@@ -42,7 +40,6 @@ public class AuthController {
     @SneakyThrows
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
-        System.out.println("KUKU");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
