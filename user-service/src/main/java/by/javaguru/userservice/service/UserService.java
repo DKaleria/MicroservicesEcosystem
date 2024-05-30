@@ -1,25 +1,9 @@
 package by.javaguru.userservice.service;
 
-import by.javaguru.userservice.dto.UserDto;
-import by.javaguru.userservice.entity.User;
-import jakarta.annotation.PostConstruct;
-import org.springframework.stereotype.Service;
+import by.javaguru.userservice.service.event.UserGetEvent;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
-@Service
-public class UserService {
-    private final Map<Long, User> userDatabase = new HashMap<>();
-
-    @PostConstruct
-    private void initializeProductDatabase() {
-        userDatabase.put(4L, new User(4L, "Vladimir"));
-        userDatabase.put(5L, new User(5L, "Alex"));
-    }
-
-    public UserDto getUserById(Long id) {
-        User user = userDatabase.get(id);
-        return new UserDto(user.getId(), user.getName());
-    }
+public interface UserService {
+    UserGetEvent getUserById(Long id) throws ExecutionException, InterruptedException;
 }

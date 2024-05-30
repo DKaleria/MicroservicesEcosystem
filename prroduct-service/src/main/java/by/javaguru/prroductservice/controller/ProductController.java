@@ -4,15 +4,12 @@ import by.javaguru.prroductservice.dto.ProductDto;
 import by.javaguru.prroductservice.exception.ErrorMessage;
 import by.javaguru.prroductservice.service.ProductService;
 import by.javaguru.prroductservice.service.event.ProductGetEvent;
-import by.javaguru.prroductservice.service.impl.ProductServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/products")
@@ -32,7 +29,8 @@ public class ProductController {
             product = productService.getProductById(id);
         } catch (Exception e){
             logger.error(e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorMessage(new Date(), e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorMessage(new Date(), e.getMessage()));
         }
         return ResponseEntity.status(HttpStatus.OK).body(product);
     }
@@ -43,7 +41,8 @@ public class ProductController {
             productId = productService.createdProduct(createProduct);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorMessage(new Date(), e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorMessage(new Date(), e.getMessage()));
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(productId);
     }

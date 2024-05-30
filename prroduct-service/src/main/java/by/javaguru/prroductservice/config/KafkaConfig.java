@@ -1,7 +1,5 @@
 package by.javaguru.prroductservice.config;
 
-import by.javaguru.prroductservice.service.event.ProductCreatedEvent;
-import by.javaguru.prroductservice.service.event.ProductGetEvent;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
