@@ -1,6 +1,6 @@
 package by.javaguru.prroductservice.service.event;
 
-import by.javaguru.userservice.dto.UserDto;
+import by.javaguru.core.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

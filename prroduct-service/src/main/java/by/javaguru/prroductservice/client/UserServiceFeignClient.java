@@ -1,6 +1,6 @@
 package by.javaguru.prroductservice.client;
 
-import by.javaguru.userservice.dto.UserDto;
+import by.javaguru.core.dto.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

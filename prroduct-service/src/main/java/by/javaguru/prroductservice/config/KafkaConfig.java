@@ -9,6 +9,7 @@ import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.transaction.KafkaTransactionManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +37,14 @@ public class KafkaConfig {
     @Value("${spring.kafka.producer.properties.request.timeout.ms}")
     private String requestTimeout;
 
+    @Value("${spring.kafka.producer.properties.enable.idempotence}")
+    private String idempotence;
+
+    @Value("${spring.kafka.producer.properties.max.in.flight.request.per.connection}")
+    private String maxInFlightRequest;
+    @Value("${spring.kafka.producer.transaction-id-prefix}")
+    private String transactionIdPrefix;
+
     Map<String, Object> producerConfigs() {
         Map<String, Object> config = new HashMap<>();
 
@@ -46,6 +55,9 @@ public class KafkaConfig {
         config.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, deliveryTimeout);
         config.put(ProducerConfig.LINGER_MS_CONFIG, linger);
         config.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, requestTimeout);
+        config.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, idempotence);
+        config.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, maxInFlightRequest);
+        config.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, transactionIdPrefix);
 
         return config;
     }
@@ -55,8 +67,8 @@ public class KafkaConfig {
     }
 
     @Bean
-    public <T> KafkaTemplate<String, T> productCreatedEventKafkaTemplate(){
-        return new KafkaTemplate<>(producerFactory());
+    public <T> KafkaTemplate<String, T> kafkaTemplate(ProducerFactory<String, T> producerFactory){
+        return new KafkaTemplate<String, T>(producerFactory);
     }
 
 
@@ -76,5 +88,11 @@ public class KafkaConfig {
                 .replicas(3)
                 .configs(Map.of("min.insync.replicas", "2"))
                 .build();
+    }
+
+    @Bean
+    public <T> KafkaTransactionManager<String, T> kafkaTransactionManager(
+            ProducerFactory<String, T> producerFactory){
+        return new KafkaTransactionManager<>(producerFactory);
     }
 }

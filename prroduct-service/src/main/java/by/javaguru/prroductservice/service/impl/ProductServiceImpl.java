@@ -1,17 +1,19 @@
 package by.javaguru.prroductservice.service.impl;
 
+import by.javaguru.core.dto.UserDto;
+import by.javaguru.core.event.ProductCreatedEvent;
 import by.javaguru.prroductservice.client.UserServiceFeignClient;
 import by.javaguru.prroductservice.dto.ProductDto;
 import by.javaguru.prroductservice.entity.Product;
 import by.javaguru.prroductservice.service.ProductService;
-import by.javaguru.prroductservice.service.event.ProductCreatedEvent;
 import by.javaguru.prroductservice.service.event.ProductGetEvent;
-import by.javaguru.userservice.dto.UserDto;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -20,6 +22,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 @Service
+@Transactional(value = "kafkaTransactionManager")
 public class ProductServiceImpl implements ProductService {
     private KafkaTemplate<String, ProductCreatedEvent> productCreatedEventKafkaTemplate;
     private KafkaTemplate<String, ProductGetEvent> productGetEventKafkaTemplate;
@@ -42,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
         productDatabase.put("a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6", new Product("a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6", "Product 1", new BigDecimal("19.99"),
                 5, 4L));
         productDatabase.put("7d8a9b0c-1e2f-3g4h-5i6j-7k8l9m0n1p2", new Product("7d8a9b0c-1e2f-3g4h-5i6j-7k8l9m0n1p2", "Product 2", new BigDecimal("45.01"),
-                3,5L));
+                3, 5L));
     }
 
     public ProductGetEvent getProductById(String id) throws ExecutionException, InterruptedException {
@@ -72,8 +75,16 @@ public class ProductServiceImpl implements ProductService {
         String productId = UUID.randomUUID().toString();
         ProductCreatedEvent productCreatedEvent = new ProductCreatedEvent(productId,
                 productDto.getTitle(), productDto.getPrice(), productDto.getQuantity(), productDto.getUser());
+
+        ProducerRecord<String, ProductCreatedEvent> record = new ProducerRecord<>(
+                "product-created-events-topic",
+                productId,
+                productCreatedEvent
+        );
+        record.headers().add("messageId", UUID.randomUUID().toString().getBytes());
+
         SendResult<String, ProductCreatedEvent> result =
-                productCreatedEventKafkaTemplate.send("product-created-events-topic", productId, productCreatedEvent).get();
+                productCreatedEventKafkaTemplate.send(record).get();
 
         logger.info("Topic: {}", result.getRecordMetadata().topic());
         logger.info("Partition: {}", result.getRecordMetadata().partition());
