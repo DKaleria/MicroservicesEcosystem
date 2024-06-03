@@ -45,6 +45,7 @@ public class KafkaConfig {
         config.put(ConsumerConfig.ISOLATION_LEVEL_CONFIG, environment.getProperty(
                 "spring.kafka.consumer.isolation-level", "READ_COMMIT"
         ).toLowerCase());
+        config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, environment.getProperty("spring.kafka.consumer.auto-offset-reset"));
 
         return new DefaultKafkaConsumerFactory<>(config);
     }
