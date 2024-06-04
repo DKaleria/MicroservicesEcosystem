@@ -6,7 +6,7 @@ import by.javaguru.prroductservice.client.UserServiceFeignClient;
 import by.javaguru.prroductservice.dto.ProductDto;
 import by.javaguru.prroductservice.entity.Product;
 import by.javaguru.prroductservice.service.ProductService;
-import by.javaguru.prroductservice.service.event.ProductGetEvent;
+import by.javaguru.core.event.ProductGetEvent;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,8 +52,14 @@ public class ProductServiceImpl implements ProductService {
         Product product = productDatabase.get(id);
         UserDto user = getUserById(product.getUserId());
         ProductGetEvent productGetEvent = new ProductGetEvent(product.getId(), product.getTitle(), product.getPrice(), product.getQuantity(), user);
+        ProducerRecord<String, ProductGetEvent> record = new ProducerRecord<>(
+                "product-get-events-topic",
+                id,
+                productGetEvent
+        );
+
         SendResult<String, ProductGetEvent> result =
-                productGetEventKafkaTemplate.send("product-get-events-topic", id, productGetEvent).get();
+                productGetEventKafkaTemplate.send(record).get();
 
         logger.info("Partition ProductGetEvent: {}", result.getRecordMetadata().partition());
 

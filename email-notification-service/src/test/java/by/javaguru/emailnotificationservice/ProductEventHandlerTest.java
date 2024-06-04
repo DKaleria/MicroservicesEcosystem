@@ -4,7 +4,7 @@ import by.javaguru.core.dto.UserDto;
 import by.javaguru.core.event.ProductCreatedEvent;
 import by.javaguru.emailnotificationservice.database.entity.ProcessedEventEntity;
 import by.javaguru.emailnotificationservice.database.repository.ProcessedEventRepository;
-import by.javaguru.emailnotificationservice.handler.ProductCreatedEventHandler;
+import by.javaguru.emailnotificationservice.handler.ProductEventHandler;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -32,7 +32,7 @@ import static org.mockito.Mockito.*;
 @EmbeddedKafka
 @ActiveProfiles("test")
 @SpringBootTest(properties = "spring.kafka.consumer.bootstrap-servers=${spring.embedded.kafka.brokers}")
-public class ProductCreatedEventHandlerTest {
+public class ProductEventHandlerTest {
     @MockBean
     ProcessedEventRepository processedEventRepository;
     @MockBean
@@ -40,7 +40,7 @@ public class ProductCreatedEventHandlerTest {
     @Autowired
     KafkaTemplate<String, Object> kafkaTemplate;
     @SpyBean
-    ProductCreatedEventHandler productCreatedEventHandler;
+    ProductEventHandler productCreatedEventHandler;
 
     @Test
     public void testProductCreatedEventHandler_OnProductCreated_HandlesEvent()
@@ -88,7 +88,7 @@ public class ProductCreatedEventHandlerTest {
         ArgumentCaptor<String> messageKeyCaptor = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<ProductCreatedEvent> eventCaptor = ArgumentCaptor.forClass(ProductCreatedEvent.class);
 
-        verify(productCreatedEventHandler, timeout(5000).times(1)).handle(
+        verify(productCreatedEventHandler, timeout(5000).times(1)).handleProductCreatedEvent(
                 eventCaptor.capture(),
                 messageIdCaptor.capture(), messageKeyCaptor.capture());
 

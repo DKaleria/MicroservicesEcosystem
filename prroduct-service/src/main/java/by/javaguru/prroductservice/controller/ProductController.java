@@ -3,7 +3,7 @@ package by.javaguru.prroductservice.controller;
 import by.javaguru.prroductservice.dto.ProductDto;
 import by.javaguru.prroductservice.exception.ErrorMessage;
 import by.javaguru.prroductservice.service.ProductService;
-import by.javaguru.prroductservice.service.event.ProductGetEvent;
+import by.javaguru.core.event.ProductGetEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,7 @@
 package by.javaguru.prroductservice.service;
 
 import by.javaguru.prroductservice.dto.ProductDto;
-import by.javaguru.prroductservice.service.event.ProductGetEvent;
+import by.javaguru.core.event.ProductGetEvent;
 
 import java.util.concurrent.ExecutionException;
 
