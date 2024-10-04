@@ -34,6 +34,7 @@ public class ProductController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(product);
     }
+
     @PostMapping
     public ResponseEntity<Object> createProduct(@RequestBody ProductDto createProduct){
         String productId = null;

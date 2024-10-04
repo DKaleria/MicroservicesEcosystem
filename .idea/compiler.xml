@@ -9,31 +9,37 @@
         <outputRelativeToContentRoot value="true" />
         <module name="core" />
         <module name="mock-service" />
+        <module name="K8s-learning" />
         <module name="PictureAppDiscoveryService" />
         <module name="user-service" />
         <module name="prroduct-service" />
         <module name="email-notification-service" />
         <module name="identity-service" />
         <module name="ApiGateway" />
+        <module name="admin-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="PictureAppUsers" target="17" />
       <module name="product-service" target="17" />
+      <module name="spring-boot-admin" target="17" />
       <module name="untitled" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGateway" options="-parameters" />
+      <module name="K8s-learning" options="-parameters" />
       <module name="PictureAppDiscoveryService" options="-parameters" />
       <module name="PictureAppUsers" options="-parameters" />
+      <module name="admin-service" options="-parameters" />
       <module name="core" options="-parameters" />
       <module name="email-notification-service" options="-parameters" />
       <module name="identity-service" options="-parameters" />
       <module name="mock-service" options="-parameters" />
       <module name="product-service" options="-parameters" />
       <module name="prroduct-service" options="-parameters" />
+      <module name="spring-boot-admin" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>
