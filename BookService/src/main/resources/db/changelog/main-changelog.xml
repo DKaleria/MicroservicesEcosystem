@@ -1,0 +1,15 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <include file="author/06-10-2024-created-author-tbl.sql" relativeToChangelogFile="true"/>
+    <include file="author/17-10-2024-insert-author-data.sql" relativeToChangelogFile="true"/>
+    <include file="genre/06-10-2024-created-genre-tbl.sql" relativeToChangelogFile="true"/>
+    <include file="genre/17-10-2024-insert-genre-data.sql" relativeToChangelogFile="true"/>
+    <include file="book/06-10-2024-created-book-tbl.sql" relativeToChangelogFile="true"/>
+    <include file="book/17-10-2024-insert-book-data.sql" relativeToChangelogFile="true"/>
+    <include file="users/06-10-2024-created-users-tbl.sql" relativeToChangelogFile="true"/>
+    <include file="book_order/06-10-2024-created-book_order-tbl.sql" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

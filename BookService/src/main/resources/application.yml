@@ -1,0 +1,36 @@
+server:
+  port: 8083
+
+spring:
+  application:
+     name: BookService
+  cloud:
+    discovery:
+      client:
+        service-url:
+          defaultZone: http://localhost:8761/eureka
+    eureka:
+      instance:
+        instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+
+  datasource:
+    url: jdbc:postgresql://localhost:5441/library_management_db
+    username: my_user
+    password: 12345
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+
+  liquibase:
+    change-log: db/changelog/main-changelog.xml
+
+  redis:
+    time-to-live:
+      books: 60000
+  data:
+    redis:
+      host: localhost
+      port: 6380
