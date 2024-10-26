@@ -24,6 +24,11 @@
         <option value="$PROJECT_DIR$/spring-boot-admin/pom.xml" />
         <option value="$USER_HOME$/Programming/K8s-learning/pom.xml" />
         <option value="$PROJECT_DIR$/K8s-learning/pom.xml" />
+        <option value="$USER_HOME$/Programming/he/loo/LibraryManagement/BookService/pom.xml" />
+        <option value="$PROJECT_DIR$/BookService/pom.xml" />
+        <option value="$USER_HOME$/Programming/he/loo/LibraryManagement/BookOrderService/pom.xml" />
+        <option value="$PROJECT_DIR$/BookOrderService/pom.xml" />
+        <option value="$PROJECT_DIR$/auth_user-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -34,7 +39,7 @@
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_20" default="true" project-jdk-name="openjdk-20" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

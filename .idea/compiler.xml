@@ -7,15 +7,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="core" />
-        <module name="mock-service" />
         <module name="K8s-learning" />
         <module name="PictureAppDiscoveryService" />
         <module name="user-service" />
         <module name="prroduct-service" />
         <module name="email-notification-service" />
-        <module name="identity-service" />
         <module name="ApiGateway" />
+        <module name="auth_user-service" />
+        <module name="core" />
+        <module name="mock-service" />
+        <module name="BookService" />
+        <module name="BookOrderService" />
+        <module name="identity-service" />
         <module name="admin-service" />
       </profile>
     </annotationProcessing>
@@ -29,10 +32,13 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGateway" options="-parameters" />
+      <module name="BookOrderService" options="-parameters" />
+      <module name="BookService" options="-parameters" />
       <module name="K8s-learning" options="-parameters" />
       <module name="PictureAppDiscoveryService" options="-parameters" />
       <module name="PictureAppUsers" options="-parameters" />
       <module name="admin-service" options="-parameters" />
+      <module name="auth_user-service" options="-parameters" />
       <module name="core" options="-parameters" />
       <module name="email-notification-service" options="-parameters" />
       <module name="identity-service" options="-parameters" />

@@ -1,4 +1,4 @@
-package by.javaguru.identityservice.database.entity;
+package by.javaguru.auth_userservice.database.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -2,52 +2,52 @@ package com.example.apigateway.filter;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
+import org.springframework.cloud.gateway.filter.factory.GatewayFilterFactory;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
-import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @Component
-public class JwtValidationFilter implements GatewayFilter {
+public class JwtValidationFilterFactory implements GatewayFilterFactory<JwtValidationFilterFactory.Config> {
     private final RestTemplate restTemplate;
     private final String identityServiceUrl;
 
-    public JwtValidationFilter(RestTemplate restTemplate, @Value("${identity.service.url}") String identityServiceUrl) {
+    public JwtValidationFilterFactory(RestTemplate restTemplate,
+                                      @Value("${identity.service.url}") String identityServiceUrl) {
         this.restTemplate = restTemplate;
         this.identityServiceUrl = identityServiceUrl;
     }
 
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        String token = extractTokenFromRequest(exchange);
-
-
-        if (validateToken(token)) {
-            return chain.filter(exchange);
-        } else {
-            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-            return exchange.getResponse().setComplete();
-        }
+    public GatewayFilter apply(Config config) {
+        return (exchange, chain) -> {
+            String token = extractTokenFromRequest(exchange);
+            if (validateToken(token)) {
+                return chain.filter(exchange);
+            } else {
+                exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+                return exchange.getResponse().setComplete();
+            }
+        };
     }
 
     private boolean validateToken(String token) {
+        System.out.println("validateToken() token = " + token);
         if (token != null) {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setBearerAuth(token);
-            HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
+            String url = identityServiceUrl + "/identity/validate-token?Authorization=" + token;
             try {
                 ResponseEntity<Void> response = restTemplate.exchange(
-                        identityServiceUrl + "/identity/validate-token",
+                        url,
                         HttpMethod.GET,
-                        requestEntity,
+                        null,
                         Void.class);
-
                 return response.getStatusCode().is2xxSuccessful();
             } catch (RestClientException e) {
+                System.out.println("Error during token validation: " + e.getMessage());
                 return false;
             }
         }
@@ -60,5 +60,19 @@ public class JwtValidationFilter implements GatewayFilter {
             return authorizationHeader.substring(7);
         }
         return null;
+    }
+
+    @Override
+    public Class<Config> getConfigClass() {
+        return Config.class;
+    }
+
+    @Override
+    public List<String> shortcutFieldOrder() {
+        return List.of();
+    }
+
+    public static class Config {
+
     }
 }

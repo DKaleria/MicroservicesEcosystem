@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MicroservicesEcosystem.iml" filepath="$PROJECT_DIR$/MicroservicesEcosystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/auth_user-service/auth_user-service.iml" filepath="$PROJECT_DIR$/auth_user-service/auth_user-service.iml" />
     </modules>
   </component>
 </project>
