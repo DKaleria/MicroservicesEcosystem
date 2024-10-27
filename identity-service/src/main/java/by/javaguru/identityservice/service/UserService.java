@@ -25,16 +25,20 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class UserService implements UserDetailsService {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-    @Autowired
     private final UserRepository userRepository;
-    @Autowired
     private PasswordEncoder passwordEncoder;
     private final AuthUserMapper authUserMapper;
     private KafkaTemplate<String, AuthUserGotEvent> kafkaTemplate;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthUserMapper authUserMapper, KafkaTemplate<String, AuthUserGotEvent> kafkaTemplate) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authUserMapper = authUserMapper;
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     public User register(RegistrationRequest request) {
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {

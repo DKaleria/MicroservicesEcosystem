@@ -15,7 +15,6 @@
         <option value="$PROJECT_DIR$/user-service/pom.xml" />
         <option value="$PROJECT_DIR$/user-service/src/main/java/by/javaguru/userservice/product-service/pom.xml" />
         <option value="$PROJECT_DIR$/prroduct-service/pom.xml" />
-        <option value="$PROJECT_DIR$/identity-service/pom.xml" />
         <option value="$PROJECT_DIR$/PictureAppDiscoveryService/src/identity-service/pom.xml" />
         <option value="$PROJECT_DIR$/email-notification-service/pom.xml" />
         <option value="$PROJECT_DIR$/core/pom.xml" />
@@ -29,6 +28,7 @@
         <option value="$USER_HOME$/Programming/he/loo/LibraryManagement/BookOrderService/pom.xml" />
         <option value="$PROJECT_DIR$/BookOrderService/pom.xml" />
         <option value="$PROJECT_DIR$/auth_user-service/pom.xml" />
+        <option value="$PROJECT_DIR$/identity-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -38,6 +38,10 @@
         <option value="$PROJECT_DIR$/user-service/src/main/java/by/javaguru/userservice/product-service/pom.xml" />
       </set>
     </option>
+  </component>
+  <component name="PWA">
+    <option name="enabled" value="true" />
+    <option name="wasEnabledAtLeastOnce" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

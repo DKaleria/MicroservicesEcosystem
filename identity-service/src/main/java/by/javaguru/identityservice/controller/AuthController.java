@@ -3,6 +3,7 @@ package by.javaguru.identityservice.controller;
 import by.javaguru.identityservice.database.entity.*;
 import by.javaguru.identityservice.exceptions.ErrorMessage;
 import by.javaguru.identityservice.service.UserService;
+import by.javaguru.identityservice.usecaseses.events.AuthUserGotEvent;
 import by.javaguru.identityservice.utils.JwtTokenUtil;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -57,15 +58,15 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/me")
-    public ResponseEntity<Object> getCurrentUser(@RequestBody AuthenticationRequest authRequest) {
+    @GetMapping("/me")
+    public ResponseEntity<Object> getCurrentUser() {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(userService.getCurrentUser());
+            AuthUserGotEvent currentUser = userService.getCurrentUser();
+            return ResponseEntity.ok(currentUser);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorMessage(new Date(),e.getMessage()));
+                    .body(new ErrorMessage(new Date(), e.getMessage()));
         }
     }
 
