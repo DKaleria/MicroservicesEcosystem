@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,5 +17,9 @@ public class AuthUserGotEventHandler {
     @KafkaHandler
     public void handle(AuthUserGotEvent authUserGotEvent){
         LOGGER.info("Received event: {}", authUserGotEvent.toString());
+    }
+    @KafkaHandler(isDefault = true)
+    public void handleDefault(Message<?> message) {
+        LOGGER.warn("Received unknown message type: {}", message);
     }
 }

@@ -1,0 +1,17 @@
+com/example/service/impl/BookServiceImpl.class
+com/example/repository/AuthorRepository.class
+com/example/controller/BookController.class
+com/example/repository/entity/BookEntity$Fields.class
+com/example/repository/entity/AuthorEntity.class
+com/example/repository/entity/BookEntity$BookEntityBuilder.class
+com/example/repository/GenreRepository.class
+com/example/repository/BookSpecificationProvider.class
+com/example/controller/request/BookCreateRequest.class
+com/example/controller/request/BookUpdateRequest.class
+com/example/mapper/BookMapper.class
+com/example/service/BookService.class
+com/example/model/BookModel.class
+com/example/BookServiceApplication.class
+com/example/repository/BookRepository.class
+com/example/repository/entity/BookEntity.class
+com/example/repository/entity/GenreEntity.class

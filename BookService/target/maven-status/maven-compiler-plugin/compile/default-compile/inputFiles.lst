@@ -1,0 +1,15 @@
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/controller/request/BookUpdateRequest.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/repository/entity/AuthorEntity.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/controller/BookController.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/service/BookService.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/repository/entity/BookEntity.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/service/impl/BookServiceImpl.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/mapper/BookMapper.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/repository/AuthorRepository.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/model/BookModel.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/BookServiceApplication.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/repository/BookRepository.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/repository/BookSpecificationProvider.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/repository/entity/GenreEntity.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/repository/GenreRepository.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookService/src/main/java/com/example/controller/request/BookCreateRequest.java

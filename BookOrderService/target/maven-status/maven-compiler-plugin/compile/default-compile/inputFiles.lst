@@ -1,0 +1,11 @@
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookOrderService/src/main/java/com/example/repository/entity/BookOrderEntity.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookOrderService/src/main/java/com/example/service/BookOrderService.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookOrderService/src/main/java/com/example/BookOrderServiceApplication.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookOrderService/src/main/java/com/example/controller/request/BookOrderCreateRequest.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookOrderService/src/main/java/com/example/repository/BookOrderRepository.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookOrderService/src/main/java/com/example/mapper/BookOrderMapper.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookOrderService/src/main/java/com/example/controller/BookOrderController.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookOrderService/src/main/java/com/example/model/BookOrderModel.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookOrderService/src/main/java/com/example/controller/request/BookOrderUpdateRequest.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookOrderService/src/main/java/com/example/service/impl/BookOrderServiceImpl.java
+/home/valeryia/Рабочий стол/Programming/MicroservicesEcosystem/BookOrderService/src/main/java/com/example/enums/BookOrderStatus.java
