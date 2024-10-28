@@ -1,7 +1,7 @@
 package by.javaguru.identityservice.usecaseses.mapper;
 
 import by.javaguru.identityservice.database.entity.User;
-import by.javaguru.identityservice.usecaseses.events.AuthUserGotEvent;
+import com.example.demo.events.AuthUserGotEvent;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

@@ -13,6 +13,7 @@
         <module name="user-service" />
         <module name="prroduct-service" />
         <module name="email-notification-service" />
+        <module name="demo" />
         <module name="ApiGateway" />
         <module name="auth_user-service" />
         <module name="core" />
@@ -43,6 +44,7 @@
       <module name="auth_user-service" options="-parameters" />
       <module name="core" options="-parameters" />
       <module name="core_2" options="-parameters" />
+      <module name="demo" options="-parameters" />
       <module name="email-notification-service" options="-parameters" />
       <module name="identity-management-service" options="-parameters" />
       <module name="identity-service" options="-parameters" />

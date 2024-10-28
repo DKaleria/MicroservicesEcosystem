@@ -1,6 +1,6 @@
 package by.javaguru.auth_userservice.handler;
 
-import by.javaguru.auth_userservice.events.AuthUserGotEvent;
+import com.example.demo.events.AuthUserGotEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaHandler;

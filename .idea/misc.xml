@@ -31,6 +31,7 @@
         <option value="$PROJECT_DIR$/identity-service/pom.xml" />
         <option value="$PROJECT_DIR$/identity-management-service/pom.xml" />
         <option value="$PROJECT_DIR$/core_2/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

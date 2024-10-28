@@ -1,10 +1,9 @@
-package by.javaguru.identityservice.usecaseses.events;
+package com.example.demo.events;
 
-import lombok.ToString;
-
+import lombok.*;
 import java.time.LocalDate;
 
-@ToString
+@Data
 public class AuthUserGotEvent {
     String id;
 
