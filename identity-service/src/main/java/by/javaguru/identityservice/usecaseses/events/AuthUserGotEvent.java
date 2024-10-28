@@ -1,6 +1,7 @@
 package by.javaguru.identityservice.usecaseses.events;
 
-import lombok.*;
+import lombok.ToString;
+
 import java.time.LocalDate;
 
 @ToString

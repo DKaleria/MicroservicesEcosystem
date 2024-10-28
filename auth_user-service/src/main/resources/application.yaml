@@ -30,7 +30,7 @@ spring:
         spring:
           json:
             trusted:
-              packages: "by.javaguru.identityservice.usecaseses.events.AuthUserGotEvent"
+              packages: "by.javaguru.auth_userservice.events, by.javaguru.identityservice.usecaseses.events"
 
 server:
   port: 0
