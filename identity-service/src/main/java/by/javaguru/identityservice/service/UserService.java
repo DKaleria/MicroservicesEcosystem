@@ -5,7 +5,7 @@ import by.javaguru.identityservice.database.entity.RegistrationRequest;
 import by.javaguru.identityservice.database.entity.User;
 import by.javaguru.identityservice.database.repository.UserRepository;
 import by.javaguru.identityservice.usecaseses.mapper.AuthUserMapper;
-import com.example.demo.events.AuthUserGotEvent;
+//import com.example.demo.events.AuthUserGotEvent;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,13 +30,12 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private final AuthUserMapper authUserMapper;
-    private KafkaTemplate<String, AuthUserGotEvent> kafkaTemplate;
+//    private KafkaTemplate<String, AuthUserGotEvent> kafkaTemplate;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthUserMapper authUserMapper, KafkaTemplate<String, AuthUserGotEvent> kafkaTemplate) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthUserMapper authUserMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authUserMapper = authUserMapper;
-        this.kafkaTemplate = kafkaTemplate;
     }
 
     public User register(RegistrationRequest request) {
@@ -65,24 +64,13 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
     }
 
-    public AuthUserGotEvent getCurrentUser() throws ExecutionException, InterruptedException {
+    public User getCurrentUser() throws ExecutionException, InterruptedException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             User user = userRepository.findByUsername(username)
                     .orElseThrow(() -> new RuntimeException("User not found"));
-            String userId = user.getId().toString();
-            AuthUserGotEvent authUserGotEvent = authUserMapper.userToAuthUserGotEvent(user);
-            SendResult<String, AuthUserGotEvent> result =
-                    kafkaTemplate.send("auth-user-got-events-topic",
-                            userId,
-                            authUserGotEvent).get();
-
-            LOGGER.info("Topic: {}", result.getRecordMetadata().topic());
-            LOGGER.info("Partition UserGetEvent: {}", result.getRecordMetadata().partition());
-            LOGGER.info("Return result: {}", authUserGotEvent);
-
-            return authUserGotEvent;
+            return user;
         }
         throw new RuntimeException("Authentication is not valid");
     }

@@ -10,12 +10,12 @@ import java.util.Map;
 @Configuration
 public class KafkaConfig {
 
-    @Bean
-    NewTopic createTopic(){
-        return TopicBuilder.name("auth-user-got-events-topic")
-                .partitions(3)
-                .replicas(3)
-                .configs(Map.of("min.insync.replicas","2")) // 1 должен быть в синхроне с лидером (2 - это лидер и фоловер)
-                .build();
-    }
+//    @Bean
+//    NewTopic createTopic(){
+//        return TopicBuilder.name("auth-user-got-events-topic")
+//                .partitions(3)
+//                .replicas(3)
+//                .configs(Map.of("min.insync.replicas","2")) // 1 должен быть в синхроне с лидером (2 - это лидер и фоловер)
+//                .build();
+//    }
 }

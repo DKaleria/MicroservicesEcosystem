@@ -4,7 +4,7 @@ import by.javaguru.identityservice.database.entity.*;
 import by.javaguru.identityservice.exceptions.ErrorMessage;
 import by.javaguru.identityservice.service.UserService;
 import by.javaguru.identityservice.utils.JwtTokenUtil;
-import com.example.demo.events.AuthUserGotEvent;
+//import com.example.demo.events.AuthUserGotEvent;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
@@ -17,7 +17,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Date;
 import java.util.List;
 
@@ -61,7 +60,7 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<Object> getCurrentUser() {
         try {
-            AuthUserGotEvent currentUser = userService.getCurrentUser();
+            User currentUser = userService.getCurrentUser();
             return ResponseEntity.ok(currentUser);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());

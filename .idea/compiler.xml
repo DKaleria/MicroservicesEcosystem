@@ -19,10 +19,21 @@
         <module name="core" />
         <module name="core_2" />
         <module name="mock-service" />
-        <module name="BookService" />
-        <module name="BookOrderService" />
         <module name="identity-service" />
         <module name="admin-service" />
+      </profile>
+      <profile name="Annotation profile for BookOrderService" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.6.0.Beta1/mapstruct-processor-1.6.0.Beta1.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.6.0.Beta1/mapstruct-1.6.0.Beta1.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+        </processorPath>
+        <module name="BookOrderService" />
+        <module name="BookService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -35,8 +46,8 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGateway" options="-parameters" />
-      <module name="BookOrderService" options="-parameters" />
-      <module name="BookService" options="-parameters" />
+      <module name="BookOrderService" options="-parameters -parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="BookService" options="-parameters -parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="K8s-learning" options="-parameters" />
       <module name="PictureAppDiscoveryService" options="-parameters" />
       <module name="PictureAppUsers" options="-parameters" />

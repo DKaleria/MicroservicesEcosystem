@@ -96,11 +96,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>by.javaguru</groupId>
-            <artifactId>demo</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
 
     </dependencies>
     <dependencyManagement>

@@ -3,11 +3,10 @@ package by.javaguru.auth_userservice.controllers;
 import by.javaguru.auth_userservice.database.entity.User;
 import by.javaguru.auth_userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -16,9 +15,11 @@ public class AuthUserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{username}")
-    public Optional<User> findByUsername(@PathVariable("username") String username) {
-        return userService.findByUsername(username);
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> searchUsers(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        List<User> users = userService.searchUsers(token);
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{user_id}")
@@ -26,9 +27,11 @@ public class AuthUserController {
         return userService.findById(userId);
     }
 
-//    @GetMapping("/me")
-//    public User getCurrentUser() {
-//        return userService.getCurrentUser();
-//    }
+    @GetMapping("/me")
+    public ResponseEntity<Object> getCurrentUser(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        Object currentUser = userService.getCurrentUser(token);
+        return ResponseEntity.ok(currentUser);
+    }
 
 }

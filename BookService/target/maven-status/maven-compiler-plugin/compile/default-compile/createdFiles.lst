@@ -1,10 +1,10 @@
-com/example/service/impl/BookServiceImpl.class
 com/example/repository/AuthorRepository.class
+com/example/service/impl/BookServiceImpl.class
 com/example/controller/BookController.class
 com/example/repository/entity/BookEntity$Fields.class
 com/example/repository/entity/AuthorEntity.class
-com/example/repository/entity/BookEntity$BookEntityBuilder.class
 com/example/repository/GenreRepository.class
+com/example/repository/entity/BookEntity$BookEntityBuilder.class
 com/example/repository/BookSpecificationProvider.class
 com/example/controller/request/BookCreateRequest.class
 com/example/controller/request/BookUpdateRequest.class

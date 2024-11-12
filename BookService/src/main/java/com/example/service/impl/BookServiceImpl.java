@@ -9,6 +9,9 @@ import com.example.repository.entity.AuthorEntity;
 import com.example.repository.entity.BookEntity;
 import com.example.repository.entity.GenreEntity;
 import com.example.service.BookService;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
@@ -50,7 +53,17 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookModel addBook(BookModel model) {
+        AuthorEntity author = new AuthorEntity(
+                new Random().nextLong(),
+                model.authorName(),
+                model.authorSurname(),
+                new HashSet<>());
+        author = authorRepository.save(author);
+        GenreEntity genre = genreRepository.findByName(model.genre()).orElseThrow(
+                () -> new RuntimeException(format("Жанр %s не существует в базе", model.genre())));
         BookEntity entity = bookMapper.toEntity(model);
+        entity.setGenre(genre);
+        entity.setAuthor(author);
         return bookMapper.toModel(bookRepository.save(entity));
     }
 

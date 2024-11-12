@@ -57,6 +57,7 @@ public class JwtValidationFilterFactory implements GatewayFilterFactory<JwtValid
     private String extractTokenFromRequest(ServerWebExchange exchange) {
         String authorizationHeader = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            System.out.println("authorizationHeader.substring(7): "+ authorizationHeader.substring(7));
             return authorizationHeader.substring(7);
         }
         return null;

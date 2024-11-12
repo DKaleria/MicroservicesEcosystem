@@ -1,0 +1,168 @@
+services:
+  db:
+    container_name: library-management-postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: my_user
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: library_management_db
+    ports:
+      - "5434:5432"
+
+  identity_db:
+    container_name: identity_db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: my_user
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: identity_db
+    ports:
+      - "5433:5432"
+
+  redis:
+    image: redis
+    container_name: library-management-redis
+    restart: always
+    volumes:
+      - redis_volume_data:/data
+    ports:
+      - "6380:6379"
+
+  book-service:
+    image: dockerfile-bookservice:0.0.1
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/library_management_db
+      SPRING_DATASOURCE_USERNAME: my_user
+      SPRING_DATASOURCE_PASSWORD: 12345
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discoveryservice:8761/eureka
+      EUREKA_INSTANCнаE_ID: BookService:fc4dbeb63c
+    depends_on:
+      - db
+      - redis
+      - discoveryservice
+      - identity-service
+
+  book-order-service:
+    image: dockerfile-orderservice:0.0.1
+    ports:
+      - "8084:8084"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/library_management_db
+      SPRING_DATASOURCE_USERNAME: my_user
+      SPRING_DATASOURCE_PASSWORD: 12345
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discoveryservice:8761/eureka
+      EUREKA_INSTANCE_ID: BookOrderService:15a7f7b8be
+    depends_on:
+      - db
+      - discoveryservice
+      - identity-service
+
+  auth_user-service:
+    image: dockerfile-auth_user:0.0.1
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/library_management_db
+      SPRING_DATASOURCE_USERNAME: my_user
+      SPRING_DATASOURCE_PASSWORD: 12345
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discoveryservice:8761/eureka
+      EUREKA_INSTANCE_ID: auth_user-service:8cc8f5f7e6
+    depends_on:
+      - db
+      - discoveryservice
+      - identity-service
+
+  discoveryservice:
+    image: dockerfile-discoveryservice:0.0.1
+    ports:
+      - "8761:8761"
+    environment:
+      SPRING_APPLICATION_NAME: discoveryservice
+      SERVER_PORT: 8761
+#      EUREKA_INSTANCE_HOSTNAME: localhost
+#      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://localhost:8761/eureka
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "false"
+
+  api-gateway:
+    image: dockerfile-apigateway:0.0.1
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_APPLICATION_NAME: api-gateway
+      SERVER_PORT: 8082
+      IDENTITY_SERVICE_URL: http://identity-service:8088/identity
+      SPRING_CLOUD_GATEWAY_ROUTES_0_ID: identity-service-authenticate
+      SPRING_CLOUD_GATEWAY_ROUTES_0_URI: lb://identity-service
+      SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0: Path=/identity/authenticate
+      SPRING_CLOUD_GATEWAY_ROUTES_1_ID: identity-service-register
+      SPRING_CLOUD_GATEWAY_ROUTES_1_URI: lb://identity-service
+      SPRING_CLOUD_GATEWAY_ROUTES_1_PREDICATES_0: Path=/identity/register
+      SPRING_CLOUD_GATEWAY_ROUTES_2_ID: identity-service-validate
+      SPRING_CLOUD_GATEWAY_ROUTES_2_URI: lb://identity-service
+      SPRING_CLOUD_GATEWAY_ROUTES_2_PREDICATES_0: Path=/identity/validate-token
+      SPRING_CLOUD_GATEWAY_ROUTES_3_ID: identity-service-users
+      SPRING_CLOUD_GATEWAY_ROUTES_3_URI: lb://identity-service
+      SPRING_CLOUD_GATEWAY_ROUTES_3_PREDICATES_0: Path=/identity/users
+      SPRING_CLOUD_GATEWAY_ROUTES_3_FILTERS_0: JwtValidationFilterFactory
+      SPRING_CLOUD_GATEWAY_ROUTES_4_ID: identity-service-me
+      SPRING_CLOUD_GATEWAY_ROUTES_4_URI: lb://identity-service
+      SPRING_CLOUD_GATEWAY_ROUTES_4_PREDICATES_0: Path=/identity/me
+      SPRING_CLOUD_GATEWAY_ROUTES_4_FILTERS_0: JwtValidationFilterFactory
+      SPRING_CLOUD_GATEWAY_ROUTES_5_ID: product-service
+      SPRING_CLOUD_GATEWAY_ROUTES_5_URI: lb://product-service
+      SPRING_CLOUD_GATEWAY_ROUTES_5_PREDICATES_0: Path=/products/**
+      SPRING_CLOUD_GATEWAY_ROUTES_5_FILTERS_0: JwtValidationFilterFactory
+      SPRING_CLOUD_GATEWAY_ROUTES_6_ID: user-service
+      SPRING_CLOUD_GATEWAY_ROUTES_6_URI: lb://user-service
+      SPRING_CLOUD_GATEWAY_ROUTES_6_PREDICATES_0: Path=/users/**
+      SPRING_CLOUD_GATEWAY_ROUTES_6_FILTERS_0: JwtValidationFilterFactory
+      SPRING_CLOUD_GATEWAY_ROUTES_7_ID: BookService
+      SPRING_CLOUD_GATEWAY_ROUTES_7_URI: lb://BookService
+      SPRING_CLOUD_GATEWAY_ROUTES_7_PREDICATES_0: Path=/books/**
+      SPRING_CLOUD_GATEWAY_ROUTES_7_FILTERS_0: JwtValidationFilterFactory
+      SPRING_CLOUD_GATEWAY_ROUTES_8_ID: BookOrderService
+      SPRING_CLOUD_GATEWAY_ROUTES_8_URI: lb://BookOrderService
+      SPRING_CLOUD_GATEWAY_ROUTES_8_PREDICATES_0: Path=/orders/**
+      SPRING_CLOUD_GATEWAY_ROUTES_8_FILTERS_0: JwtValidationFilterFactory
+      SPRING_CLOUD_GATEWAY_ROUTES_9_ID: auth_user-service
+      SPRING_CLOUD_GATEWAY_ROUTES_9_URI: lb://auth_user-service
+      SPRING_CLOUD_GATEWAY_ROUTES_9_PREDICATES_0: Path=/auth_users/**
+      SPRING_CLOUD_GATEWAY_ROUTES_9_FILTERS_0: JwtValidationFilterFactory
+      SPRING_CLOUD_GATEWAY_DISCOVERY_LOCATOR_ENABLED: "true"
+      SPRING_CLOUD_GATEWAY_DISCOVERY_LOCATOR_LOWER_CASE_SERVICE_ID: "true"
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discoveryservice:8761/eureka
+      EUREKA_INSTANCE_ID: api-gateway:f10ya47bc43
+    depends_on:
+      - discoveryservice
+      - identity-service
+
+  identity-service:
+    image: dockerfile-identity:0.0.1
+    ports:
+      - "8088:8088"
+    environment:
+      SPRING_PROFILES_ACTIVE: database
+      SPRING_DATASOURCE_URL: jdbc:postgresql://identity_db:5432/identity_db
+      SPRING_DATASOURCE_USERNAME: my_user
+      SPRING_DATASOURCE_PASSWORD: 12345
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_SHOW_SQL: true
+      SPRING_LIQUIBASE_CHANGELOG: db.changelog_2/main-changelog_2.xml
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discoveryservice:8761/eureka
+      EUREKA_INSTANCE_ID: identity-service:e10da5dc44
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: '*'
+    depends_on:
+      - identity_db
+      - discoveryservice
+
+
+volumes:
+  redis_volume_data:

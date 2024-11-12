@@ -7,14 +7,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Set;
+import lombok.NoArgsConstructor;
 
 import static java.util.Collections.emptySet;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "author")
 public class AuthorEntity {
     @Id

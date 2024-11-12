@@ -1,16 +1,8 @@
 spring:
   application:
-    name: '@project.name@'
-  cloud:
-    discovery:
-      client:
-        service-url:
-          defaultZone: http://localhost:8761/eureka
-    eureka:
-      instance:
-        instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    name: auth_user-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/library_management_db
+    url: jdbc:postgresql://db:5432/library_management_db
     username: my_user
     password: 12345
   jpa:
@@ -20,18 +12,25 @@ spring:
       ddl-auto: validate
   liquibase:
     change-log: db.changelog/main-changelog.xml
-  kafka:
-    consumer:
-      bootstrap-servers: localhost:9092, localhost:9094
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      group-id: auth-user-got-events
-      properties:
-        spring:
-          json:
-            trusted:
-              packages: "*"
+#  kafka:
+#    consumer:
+#      bootstrap-servers: localhost:9092, localhost:9094
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      group-id: auth-user-got-events
+#      properties:
+#        spring:
+#          json:
+#            trusted:
+#              packages: "*"
 
 server:
-  port: 0
+  port: 8085
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discoveryservice:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 

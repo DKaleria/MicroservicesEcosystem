@@ -7,5 +7,5 @@ CREATE TABLE users (
                        birth_date DATE,
                        firstname VARCHAR(20),
                        lastname VARCHAR(20),
-                       password VARCHAR(25) NOT NULL
+                       password VARCHAR(120) NOT NULL
 );
